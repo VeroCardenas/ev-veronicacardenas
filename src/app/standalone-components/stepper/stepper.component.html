@@ -1,0 +1,9 @@
+<div class="stepper">
+  <div class="step"
+    *ngFor="let step of steps; let i = index"
+    [ngClass]="{ 'active': i === (currentStep$ | async) }">
+    <div>{{ step }}</div>
+  </div>
+</div>
+<ng-content></ng-content>
+

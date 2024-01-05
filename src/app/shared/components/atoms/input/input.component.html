@@ -1,0 +1,14 @@
+<div [formGroup]="form" class="input">
+  <label class="input__label">{{ label }}</label>
+  <input
+    class="input__field"
+    [type]="type"
+    [formControlName]="control"
+    placeholder="{{ placeHolder }}"
+    (keyup)="onKeyUp($event)"
+  />
+  <app-validation-text
+    [form]="form"
+    [controlName]="control"
+  ></app-validation-text>
+</div>

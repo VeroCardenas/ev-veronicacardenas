@@ -1,0 +1,10 @@
+<ng-container *ngIf="form.controls[controlName]?.errors">
+  <ng-container *ngIf="
+      form.controls[controlName].dirty && !form.controls[controlName].valid
+    ">
+    <span class="error"
+      *ngFor="let error of errors">
+      {{ error }}
+    </span>
+  </ng-container>
+</ng-container>

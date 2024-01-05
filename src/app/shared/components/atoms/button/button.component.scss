@@ -1,0 +1,41 @@
+button {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 24px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  border: none;
+  padding: 1rem 1.5rem !important;
+  cursor: pointer;
+}
+
+.button {
+  &--primary {
+    background-color: #FFDD00;
+    color: #0F265C;
+    border-radius: .25rem;
+
+    &:active {
+      background-color: #ffdd00;
+    }
+
+    &:disabled {
+      background-color: #FFF199;
+      color: #182c5c;
+    }
+  }
+
+  &--secondary {
+    background-color: #E9ECF3;
+    color: #0F265C;
+
+    &:active {
+      background-color: #e9ecf3;
+    }
+
+    &:disabled {
+      background-color: #f4f6f9;
+      color: #9fa8be;
+    }
+  }
+}

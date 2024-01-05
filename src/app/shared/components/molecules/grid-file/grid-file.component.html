@@ -1,0 +1,18 @@
+<div class="grid-file">
+  <span class="grid-file__title">Cargue su archivo</span>
+  <div class="grid-file__form">
+    <app-input class="grid-file__form"
+      label="Archivo"
+      [form]="form"
+      [control]="'otp'"
+      [type]="'file'"></app-input>
+  </div>
+  <div class="grid-file__buttons">
+    <app-button color="secondary"
+      label="Regresar"
+      (onClick)="prevStep()"></app-button>
+    <app-button [disabled]="!form.valid"
+      label="Continuar"
+      (onClick)="nextStep()"></app-button>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+.stepper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.step {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.step.active {
+  background-color: #ccc;
+}
+
+.buttons {
+  margin-top: 20px;
+}
+
+.buttons button {
+  margin-right: 10px;
+}

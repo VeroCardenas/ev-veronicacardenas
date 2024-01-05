@@ -1,0 +1,12 @@
+<div class="login">
+  <span class="login__title">Ingrese su usuario y contraseña</span>
+  <div class="login__form">
+    <app-input label="Usuario" [form]="form" [control]="'user'"></app-input>
+    <app-input label="Contraseña" [form]="form" [control]="'password'"></app-input>
+  </div>
+  <app-button
+    [disabled]="!form.valid"
+    label="Ingresar"
+    (onClick)="login()"
+  ></app-button>
+</div>
