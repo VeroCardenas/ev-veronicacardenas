@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoginService } from 'src/app/core/services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -13,13 +14,14 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private router: Router,
+    private loginService: LoginService,
   ) {
     this.initForm();
   }
 
   initForm() {
     this.form = this.fb.group({
-      "user": [null, [Validators.required]],
+      "userName": [null, [Validators.required]],
       "password": [null, [Validators.required]],
     });
 
@@ -27,8 +29,11 @@ export class LoginComponent {
 
   login() {
     //TODO: validate login
+    this.loginService.login(this.form.value).subscribe(res => {
+      console.log(res)
+      this.router.navigate(['load-file']);
+    })
 
-    this.router.navigate(['load-file']);
   }
 
 }

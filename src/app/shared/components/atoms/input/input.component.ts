@@ -13,6 +13,7 @@ export class InputComponent implements OnInit {
   @Input() control: string = 'control'
   @Input() type: string = 'text'
   @Output() onKeyUpEvent = new EventEmitter<any>();
+  @Output() onChangeEvent = new EventEmitter<any>();
 
   constructor() { }
 
@@ -24,6 +25,10 @@ export class InputComponent implements OnInit {
 
   onKeyUp(event: any) {
     this.onKeyUpEvent.emit(event);
+  }
+
+  onChange(event: any) {
+    this.onChangeEvent.emit(event);
   }
 
 }

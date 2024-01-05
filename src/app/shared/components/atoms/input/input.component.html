@@ -6,6 +6,7 @@
     [formControlName]="control"
     placeholder="{{ placeHolder }}"
     (keyup)="onKeyUp($event)"
+    (change)="onChange($event)"
   />
   <app-validation-text
     [form]="form"

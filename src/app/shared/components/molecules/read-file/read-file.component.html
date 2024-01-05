@@ -1,0 +1,13 @@
+<div class="grid-file">
+  <span class="grid-file__title">Cargue su archivo</span>
+  <div class="grid-file__form">
+    <app-input
+      class="grid-file__form"
+      label="Archivo"
+      [form]="form"
+      [control]="'otp'"
+      [type]="'file'"
+      (onChangeEvent)="onFileChange($event)"
+    ></app-input>
+  </div>
+</div>

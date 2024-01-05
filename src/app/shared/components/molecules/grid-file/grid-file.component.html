@@ -1,18 +1,38 @@
 <div class="grid-file">
-  <span class="grid-file__title">Cargue su archivo</span>
-  <div class="grid-file__form">
-    <app-input class="grid-file__form"
-      label="Archivo"
-      [form]="form"
-      [control]="'otp'"
-      [type]="'file'"></app-input>
-  </div>
-  <div class="grid-file__buttons">
-    <app-button color="secondary"
-      label="Regresar"
-      (onClick)="prevStep()"></app-button>
-    <app-button [disabled]="!form.valid"
-      label="Continuar"
-      (onClick)="nextStep()"></app-button>
+  <div class="content" role="main">
+    <table>
+      <thead>
+        <tr *ngIf="header$ | async; let header">
+          <th *ngFor="let name of header">{{ name }}</th>
+          <th><button (click)="addElement()">Agregar</button></th>
+        </tr>
+      </thead>
+      <tbody *ngIf="fileData$ | async; let fileData">
+        <tr *ngFor="let row of fileData; index as i">
+          <td *ngFor="let cell of row">{{ cell }}</td>
+          <td><button (click)="remove(i)">Eliminar</button></td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <button (click)="onSave()">Export XLSX</button>
+      </tfoot>
+    </table>
   </div>
 </div>
+
+<app-modal
+  [show]="isAddElement"
+  (close)="closeIsAdd()"
+  title="Agrega un nuevo elemento"
+>
+  <ng-container *ngIf="header$ | async; let header">
+    <ng-container *ngFor="let name of header">
+      <app-input [label]="name" [form]="form" [control]="name"></app-input>
+    </ng-container>
+  </ng-container>
+  <app-button
+    [disabled]="!form.valid"
+    label="Guardar"
+    (onClick)="saveNewElement()"
+  ></app-button>
+</app-modal>

@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { OtpService } from './services/otp.service';
 import { CustomErrorHandler } from './hander/custom-error.handler';
 import { InfoStepsService } from './services/info-steps.service';
+import { FileService } from './services/file.service';
+import { LoginService } from './services/login.service';
 
 
 
@@ -15,9 +16,10 @@ import { InfoStepsService } from './services/info-steps.service';
     HttpClientModule,
   ],
   providers: [
-    OtpService,
+    LoginService,
     CustomErrorHandler,
     InfoStepsService,
+    FileService,
   ]
 })
 export class CoreModule { }

@@ -1,59 +1,63 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subject, takeUntil } from 'rxjs';
-import { InfoStepsService } from 'src/app/core/services/info-steps.service';
-import { OtpService } from 'src/app/core/services/otp.service';
-import { CustomValidations } from 'src/app/shared/utils/validators/otp-validator';
-
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FileService } from 'src/app/core/services/file.service';
 @Component({
   selector: 'app-grid-file',
   templateUrl: './grid-file.component.html',
   styleUrls: ['./grid-file.component.scss']
 })
 export class GridFileComponent {
+
+  fileData$ = this.file.fileDataChange$;
+  header$ = this.file.headerChange$;
+  isAddElement: boolean = false;
   form: FormGroup = new FormGroup({});
-  otp$ = this.otpService.getOtpValue$;
-  private _onDestroy$ = new Subject<void>();
 
   constructor(
+    private file: FileService,
     private fb: FormBuilder,
-    private otpService: OtpService,
-    private infoStepsService: InfoStepsService,
   ) {
-    this.initForm();
+
   }
 
   ngOnInit(): void {
+    this.subscribeHeader();
+  }
 
+  subscribeHeader() {
+    this.header$.subscribe(header => {
+      this.initForm(header);
+    })
+  }
+
+  onSave() {
 
   }
 
-  ngOnDestroy(): void {
-    this.removeListeners();
+  remove(index: number) {
+    this.file.removeRow(index);
   }
 
-  removeListeners() {
-    this._onDestroy$.next();
-    this._onDestroy$.complete();
+  addElement() {
+    this.isAddElement = true;
   }
 
-  initForm() {
-    this.form = this.fb.group({
-      "otp": ['', [Validators.required, CustomValidations.otp(this.otpService)]],
-    });
+  initForm(header: string[]) {
+    this.form = this.fb.group({});
+    header.forEach(item => {
+      this.form.addControl(item, new FormControl(null, [Validators.required]));
+    })
 
   }
 
-  prevStep() {
-    this.infoStepsService.onPrevStep();
+  closeIsAdd() {
+    this.isAddElement = false;
   }
 
-  nextStep() {
-    this.otpService.validateOtp(this.form.value.otp)
-      .pipe(takeUntil(this._onDestroy$))
-      .subscribe(res => {
-        this.infoStepsService.onValidationOtp(res);
-        this.infoStepsService.onNextStep();
-      })
+  saveNewElement() {
+    console.log(this.form.value);
+    let values = Object.entries(this.form.value).map(([_key, value]) => String(value))
+    this.file.addNewFileData(values);
+    this.closeIsAdd();
   }
 }
